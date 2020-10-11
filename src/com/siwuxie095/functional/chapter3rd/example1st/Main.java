@@ -1,4 +1,4 @@
-package com.siwuxie095.functional.chapter3rd;
+package com.siwuxie095.functional.chapter3rd.example1st;
 
 /**
  * @author Jiajing Li

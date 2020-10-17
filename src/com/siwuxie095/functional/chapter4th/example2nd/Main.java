@@ -68,6 +68,10 @@ public class Main {
      *
      * 值得注意的是，不同的函数式接口有不同的方法。如果使用 Predicate，就应该调用 test 方法，如果使用 Function，
      * 就应该调用 apply 方法。
+     *
+     * PS：需要引入两个 jar 包：
+     * （1）org.slf4j » slf4j-api » 1.7.30
+     * （2）org.slf4j » slf4j-simple » 1.7.30
      */
     public static void main(String[] args) {
         debugLogWithIf();

@@ -14,7 +14,7 @@ public class Main {
      *
      * PS：接口的多继承，也可以称为多实现。
      *
-     * 以接口 Carriage 和 Jukebox 为例，二者都有一个默认方法 rock，虽然各有各的用途。而类MusicalCarriage
+     * 以接口 Carriage 和 Jukebox 为例，二者都有一个默认方法 rock，虽然各有各的用途。而类 MusicalCarriage
      * 同时实现了接口 Carriage 和 Jukebox，那么它到底继承了哪个接口的 rock 方法呢？
      *
      * public interface Carriage {

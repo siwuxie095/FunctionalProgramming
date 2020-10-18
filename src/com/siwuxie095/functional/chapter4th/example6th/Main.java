@@ -20,9 +20,10 @@ public class Main {
      * 接口增加了 stream 方法，这意味着所有实现了 Collection 接口的类都必须增加这个新方法。对核心类库里的类来说，实现这个
      * 新方法（比如为 ArrayList 增加新的 stream 方法）就能就能使问题迎刃而解。
      *
-     * 缺憾在于，这个修改依然打破了二进制兼容性，在 JDK 之外实现 Collection 接口的类，例如 MyCustomList，也仍然需要实现
-     * 新增的 stream 方法（这里默认 MyCustomList 是在 Java 8 之前的版本实现的）。这个 MyCustomList 在 Java 8 中无法
-     * 通过编译，即使已有一个编译好的版本，在 JVM 加载 MyCustomList 类时，类加载器仍然会引发异常。
+     * 缺憾在于，这个修改依然打破了二进制兼容性，在 JDK 之外实现 Collection 接口的类，如 MyCustomList（实现自 List 接口，
+     * 间接实现自 Collection 接口），也仍然需要实现新增的 stream 方法（默认 MyCustomList 是在 Java 8 之前的版本实现的）。
+     * 这个 MyCustomList 在 Java 8 中无法通过编译，即使已有一个编译好的版本，在 JVM 加载 MyCustomList 类时，类加载器
+     * 仍然会引发异常。
      *
      * 这是所有使用第三方集合类库的梦魇，要避免这个糟糕情况，则需要在 Java 8 中添加新的语言特性：默认方法。
      */

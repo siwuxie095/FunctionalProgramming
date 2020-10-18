@@ -152,9 +152,9 @@ public class Main {
      * 问：
      * 只用 reduce 和 Lambda 表达式写出实现 Stream 上的 map 操作的代码，如果不想返回 Stream，可以返回一个 List。
      * 答：
-     *     private static <I, O> List<O> map(Stream<I> stream, Function<I, O> mapper) {
+     *     public static <I, O> List<O> map(Stream<I> stream, Function<I, O> mapper) {
      *         return stream.reduce(new ArrayList<O>(), (acc, ele) -> {
-     *             List<O> newAcc = new ArrayList<>();
+     *             List<O> newAcc = new ArrayList<>(acc);
      *             newAcc.add(mapper.apply(ele));
      *             return newAcc;
      *         }, (List<O> left, List<O> right) -> {
@@ -169,7 +169,7 @@ public class Main {
      * 问：
      * 只用 reduce 和 Lambda 表达式写出实现 Stream 上的 filter 操作的代码，如果不想返回 Stream，可以返回一个 List。
      * 答：
-     *     private static <I> List<I> filter(Stream<I> stream, Predicate<I> predicate) {
+     *     public static <I> List<I> filter(Stream<I> stream, Predicate<I> predicate) {
      *         List<I> initial = new ArrayList<>();
      *         return stream.reduce(initial, (List<I> acc, I ele) -> {
      *             if (predicate.test(ele)) {
@@ -195,18 +195,17 @@ public class Main {
         testGetNamesAndOriginsV1();
         testGetAlbumsWithAtMostThreeTracksV1();
 
-        List<Artist> artists = new ArrayList<>();
-        // ...
-        iterate(artists);
-        convertToInternalIteration1st(artists);
+        testIterateV1();
+        testConvertToInternalIteration1stV1();
+        testConvertToInternalIteration2ndV1();
 
         pureFunction();
 
-        countLowercaseLetters("");
-        mostLowercaseString(new ArrayList<>());
-
-        map(Stream.empty(), x -> x);
-        filter(Stream.empty(), x -> true);
+        testCountLowercaseLettersV1();
+        testCountLowercaseLettersV2();
+        testCountLowercaseLettersV3();
+        testMostLowercaseStringV1();
+        testMostLowercaseStringV2();
     }
 
     private static void testAddUpV1() {
@@ -246,6 +245,11 @@ public class Main {
                 .collect(Collectors.toList());
     }
 
+    private static void testIterateV1() {
+        int total = iterate(Arrays.asList(SampleData.johnColtrane, SampleData.theBeatles));
+        Assert.assertEquals(4, total);
+    }
+
     private static int iterate(List<Artist> artists) {
         int totalMembers = 0;
         for (Artist artist : artists) {
@@ -255,10 +259,20 @@ public class Main {
         return totalMembers;
     }
 
+    private static void testConvertToInternalIteration1stV1() {
+        int total = convertToInternalIteration1st(Arrays.asList(SampleData.johnColtrane, SampleData.theBeatles));
+        Assert.assertEquals(4, total);
+    }
+
     private static int convertToInternalIteration1st(List<Artist> artists) {
         return (int) artists.stream()
                 .flatMap(artist -> artist.getMembers())
                 .count();
+    }
+
+    private static void testConvertToInternalIteration2ndV1() {
+        int total = convertToInternalIteration2nd(Arrays.asList(SampleData.johnColtrane, SampleData.theBeatles));
+        Assert.assertEquals(4, total);
     }
 
     private static int convertToInternalIteration2nd(List<Artist> artists) {
@@ -275,10 +289,34 @@ public class Main {
                 .forEach(musician -> count.incrementAndGet());
     }
 
+    private static void testCountLowercaseLettersV1() {
+        int count = countLowercaseLetters("");
+        Assert.assertEquals(0, count);
+    }
+
+    private static void testCountLowercaseLettersV2() {
+        int count = countLowercaseLetters("aBcDeF");
+        Assert.assertEquals(3, count);
+    }
+
+    private static void testCountLowercaseLettersV3() {
+        int count = countLowercaseLetters("ABCDEF");
+        Assert.assertEquals(0, count);
+    }
+
     private static int countLowercaseLetters(String string) {
         return (int) string.chars()
                 .filter(Character::isLowerCase)
                 .count();
+    }
+
+    private static void testMostLowercaseStringV1() {
+        Assert.assertFalse(mostLowercaseString(Collections.emptyList()).isPresent());
+    }
+
+    private static void testMostLowercaseStringV2() {
+        Optional<String> result = mostLowercaseString(Arrays.asList("a", "abc", "ABCde"));
+        Assert.assertEquals(Optional.of("abc"), result);
     }
 
     private static Optional<String> mostLowercaseString(List<String> strings) {
@@ -286,35 +324,5 @@ public class Main {
                 .max(Comparator.comparing(string -> countLowercaseLetters(string)));
     }
 
-    private static <I, O> List<O> map(Stream<I> stream, Function<I, O> mapper) {
-        return stream.reduce(new ArrayList<O>(), (acc, ele) -> {
-            List<O> newAcc = new ArrayList<>();
-            newAcc.add(mapper.apply(ele));
-            return newAcc;
-        }, (List<O> left, List<O> right) -> {
-            List<O> newLeft = new ArrayList<>(left);
-            newLeft.addAll(right);
-            return newLeft;
-        });
-    }
-
-    private static <I> List<I> filter(Stream<I> stream, Predicate<I> predicate) {
-        List<I> initial = new ArrayList<>();
-        return stream.reduce(initial, (List<I> acc, I ele) -> {
-            if (predicate.test(ele)) {
-                List<I> newAcc = new ArrayList<>(acc);
-                newAcc.add(ele);
-                return newAcc;
-            } else {
-                return acc;
-            }
-        }, (left, right) -> combineLists(left, right));
-    }
-
-    private static <I> List<I> combineLists(List<I> left, List<I> right) {
-        List<I> newLeft = new ArrayList<>(left);
-        newLeft.addAll(right);
-        return newLeft;
-    }
 
 }

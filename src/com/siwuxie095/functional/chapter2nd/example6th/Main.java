@@ -1,11 +1,18 @@
 package com.siwuxie095.functional.chapter2nd.example6th;
 
+import org.junit.Assert;
+
+import javax.swing.text.DateFormatter;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Locale;
 import java.util.function.Predicate;
 
 /**
  * @author Jiajing Li
  * @date 2020-10-10 20:19:18
  */
+@SuppressWarnings("all")
 public class Main {
 
     /**
@@ -36,7 +43,7 @@ public class Main {
      * 如 "01-Jan-1970"。
      * 答：
      * public final static ThreadLocal<DateFormatter> formatter
-     *         = ThreadLocal.withInitial(() -> new DateFormatter(new SimpleDateFormat("dd-MMM-yyyy")));
+     *         = ThreadLocal.withInitial(() -> new DateFormatter(new SimpleDateFormat("dd-MMM-yyyy", , Locale.ENGLISH)));
      *
      *
      * （2）类型推断规则。下面是将 Lambda 表达式作为参数传递给函数的一些例子。javac 能正确推断出 Lambda
@@ -56,6 +63,7 @@ public class Main {
      * PS：建议不要使用函数式接口进行重载。
      */
     public static void main(String[] args) {
+        testFormatter();
         //check(x -> x > 5);
     }
 
@@ -67,6 +75,19 @@ public class Main {
     }
 
     private static void check(Predicate<Integer> predicate) {
+    }
+
+    public final static ThreadLocal<DateFormatter> formatter
+            = ThreadLocal.withInitial(() -> new DateFormatter(new SimpleDateFormat("dd-MMM-yyyy", Locale.ENGLISH)));
+
+    private static void testFormatter() {
+        Calendar cal = Calendar.getInstance();
+        cal.set(Calendar.YEAR, 1970);
+        cal.set(Calendar.MONTH, Calendar.JANUARY);
+        cal.set(Calendar.DAY_OF_MONTH, 1);
+        String formatted = formatter.get().getFormat().format(cal.getTime());
+        System.out.println(formatted);
+        Assert.assertEquals("01-Jan-1970", formatted);
     }
 
 }

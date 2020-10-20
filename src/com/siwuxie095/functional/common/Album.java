@@ -56,7 +56,7 @@ public class Album {
         return Collections.unmodifiableList(musicians);
     }
 
-    public Artist getMusician() {
+    public Artist getMainMusician() {
         return musicians.get(0);
     }
 

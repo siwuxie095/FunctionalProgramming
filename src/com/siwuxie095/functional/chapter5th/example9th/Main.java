@@ -52,7 +52,7 @@ public class Main {
      *
      *     private static Map<Artist, List<String>> nameOfAlbumsDumb(Stream<Album> albums) {
      *         Map<Artist, List<Album>> albumsByArtist =
-     *                 albums.collect(Collectors.groupingBy(album ->album.getMainMusician()));
+     *                 albums.collect(Collectors.groupingBy(album -> album.getMainMusician()));
      *
      *         Map<Artist, List<String>>  nameOfAlbums = new HashMap<>();
      *         for(Map.Entry<Artist, List<Album>> entry : albumsByArtist.entrySet()) {
@@ -80,7 +80,7 @@ public class Main {
      * mapping 收集器和 map 方法一样，接受一个 Function 对象作为参数。这样，就可以重构上述代码，如下：
      *
      *     private static Map<Artist, List<String>> nameOfAlbums(Stream<Album> albums) {
-     *         return albums.collect(Collectors.groupingBy(album ->album.getMainMusician(),
+     *         return albums.collect(Collectors.groupingBy(album -> album.getMainMusician(),
      *                 Collectors.mapping(Album::getName, Collectors.toList())));
      *     }
      *
@@ -116,7 +116,7 @@ public class Main {
 
     private static Map<Artist, List<String>> nameOfAlbumsDumb(Stream<Album> albums) {
         Map<Artist, List<Album>> albumsByArtist =
-                albums.collect(Collectors.groupingBy(album ->album.getMainMusician()));
+                albums.collect(Collectors.groupingBy(album -> album.getMainMusician()));
 
         Map<Artist, List<String>>  nameOfAlbums = new HashMap<>();
         for(Map.Entry<Artist, List<Album>> entry : albumsByArtist.entrySet()) {
@@ -129,7 +129,7 @@ public class Main {
     }
 
     private static Map<Artist, List<String>> nameOfAlbums(Stream<Album> albums) {
-        return albums.collect(Collectors.groupingBy(album ->album.getMainMusician(),
+        return albums.collect(Collectors.groupingBy(album -> album.getMainMusician(),
                 Collectors.mapping(Album::getName, Collectors.toList())));
     }
 

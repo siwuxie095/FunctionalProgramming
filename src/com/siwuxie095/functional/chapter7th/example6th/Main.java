@@ -70,7 +70,7 @@ public class Main {
     /**
      * 使用 forEach 记录中间值，这种方式有点幼稚
      */
-    private static Set<String> findByStream(Album album) {
+    private static Set<String> findByForEach(Album album) {
         album.getMusicians()
                 .filter(artist -> artist.getName().startsWith("The"))
                 .map(artist -> artist.getNationality())

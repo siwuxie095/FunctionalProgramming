@@ -122,8 +122,8 @@ public class Main {
      *
      *
      *
-     * 调用 stream 方法，将每个列表转换成 Stream 对象，其余部分由 flatMap 方法处理。flatMap 方法的相关函数接口和 map
-     * 方法的一样，都是 Function 接口，只是方法的返回值限定为 Stream 类型罢了。
+     * 调用 stream 方法，将每个列表转换成 Stream 对象，其余部分由 flatMap 方法处理。flatMap 方法的相关函数式接口和
+     * map 方法的一样，都是 Function 接口，只是方法的返回值限定为 Stream 类型罢了。
      *
      * PS：flatMap 可将多个 Stream 合并成一个 Stream。具体过程是将 Stream 中的每一个列表替换成一个新的 Stream 对象，
      * 看起来就像是多个 Stream 合并成了一个 Stream，此时 Stream 中的类型也发生了转换，转换成了对应列表中的类型。如下：

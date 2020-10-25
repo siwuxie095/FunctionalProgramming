@@ -131,6 +131,9 @@ public class Main {
         Assert.assertEquals(30, result);
     }
 
+    /**
+     * 求列表元素的平方和，该实现方式性能不高
+     */
     private static int slowSumOfSquares(List<Integer> linkedListOfNumbers) {
         return linkedListOfNumbers.parallelStream()
                 .map(x -> x * x)

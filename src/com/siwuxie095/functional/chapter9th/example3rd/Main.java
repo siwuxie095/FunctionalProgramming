@@ -166,6 +166,10 @@ public class Main {
      *
      * PS：如果将消息发送到有多个处理程序监听的地址，则会轮询决定哪个处理程序会接收到消息。这意味着在注册地址时要多加
      * 小心。
+     *
+     * 另外：需要引入 Vert.x 的相关 jar 包，共 2 个，如下：
+     * （1）io.vertx » vertx-platform » 2.1.6
+     * （2）io.vertx » vertx-core » 2.1.6
      */
     public static void main(String[] args) {
 

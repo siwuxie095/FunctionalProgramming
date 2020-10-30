@@ -23,16 +23,16 @@ public class Main {
      *
      *     @Override
      *     public Album lookupByName(String albumName) {
-     *         Future<Credentials> trackLogin = loginTo("track");
+     *         Future<Credentials> trackLogin = loginTo("track"); // <1>
      *         Future<Credentials> artistLogin = loginTo("artist");
      *
      *         try {
-     *             Future<List<Track>> tracks = lookupTracks(albumName, trackLogin.get());
+     *             Future<List<Track>> tracks = lookupTracks(albumName, trackLogin.get()); // <2>
      *             Future<List<Artist>> artists = lookupArtists(albumName, artistLogin.get());
      *
-     *             return new Album(albumName, tracks.get(), artists.get());
+     *             return new Album(albumName, tracks.get(), artists.get()); // <3>
      *         } catch (InterruptedException | ExecutionException e) {
-     *             throw new AlbumLookupException(e.getCause());
+     *             throw new AlbumLookupException(e.getCause()); // <4>
      *         }
      *     }
      *

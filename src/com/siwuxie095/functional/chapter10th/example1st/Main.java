@@ -7,7 +7,7 @@ package com.siwuxie095.functional.chapter10th.example1st;
 public class Main {
 
     /**
-     * 􏱴􏱵􏱶􏱷􏱸􏱹􏱺下一步该怎么办
+     * 下一步该怎么办
      *
      * Java 作为一门语言，在很多方面都经受住了时间的考验。它仍然是非常受欢迎的平台，选用 Java 开发企业级应用是个不错的选择。
      * 人们开发了大量的开源类库和框架，解决各种各样的问题：从编写模块化且复杂的网络应用（Spring 框架）到正确地计算日期和时间
